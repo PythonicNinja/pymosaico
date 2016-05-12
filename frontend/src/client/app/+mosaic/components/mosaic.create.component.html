@@ -1,0 +1,25 @@
+<form (ngSubmit)="create()">
+    <h1>Create mosaic</h1>
+    <p>
+        {{ errors.non_field_errors }}
+    </p>
+    <p *ngIf="errors.name" class="error">
+      <span>{{ errors.name }}</span>
+    </p>
+    <input [(ngModel)]="name" placeholder="name">
+    <br>
+    <br>
+    <p *ngIf="errors.folder" class="error">
+      <span>{{ errors.folder }}</span>
+    </p>
+    <select [(ngModel)]="folder" placeholder="folder">
+
+    </select>
+    <br>
+    <br>
+    <p *ngIf="errors.target" class="error">
+      <span>{{ errors.target }}</span>
+    </p>
+    <input [(ngModel)]="target" placeholder="target" type="file">
+    <button (click)="create()">Create</button>
+</form>
