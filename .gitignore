@@ -63,3 +63,5 @@ target/
 
 db*
 local*
+
+backend/public/*

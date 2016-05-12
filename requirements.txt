@@ -4,4 +4,7 @@ django-rest-auth
 django-allauth
 django-extensions
 Werkzeug
-Pillow
+pillow
+celery
+-e hg+https://vojtek@bitbucket.org/iamFIREcracker/osaic#egg=osaic
+django-cors-headers
