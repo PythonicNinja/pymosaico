@@ -8,5 +8,5 @@ __author__ = 'mail@pythonic.ninja'
 
 app_name = 'mosaico'
 urlpatterns = [
-    url(r'^viewset/', MosaicoViewSet.as_view({'get': 'list'}), name='viewset'),
+    url(r'^viewset/', MosaicoViewSet.as_view({'get': 'list', 'post': 'create'}), name='viewset'),
 ]

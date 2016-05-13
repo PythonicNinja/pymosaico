@@ -1,17 +1,16 @@
 import { FORM_DIRECTIVES } from '@angular/common';
 import { Component } from '@angular/core';
 
-import { NameListService } from '../../shared/index';
 import {LoginComponent} from "../../components/login.component";
+import {UserService} from "../../shared/services/user.service";
+import {RegisterComponent} from "../../components/register.component";
 
 @Component({
   selector: 'sd-home',
   templateUrl: 'app/+home/components/home.component.html',
   styleUrls: ['app/+home/components/home.component.css'],
-  directives: [FORM_DIRECTIVES, LoginComponent]
+  directives: [LoginComponent, RegisterComponent]
 })
 export class HomeComponent {
-  newName: string;
-  constructor(public nameListService: NameListService) {}
-
+  constructor(public userService:UserService) {}
 }

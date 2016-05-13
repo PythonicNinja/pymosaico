@@ -9,17 +9,13 @@ import {FoldersService} from "../../shared/services/folders.service";
 
 
 @Component({
-  selector: 'sd-mosaic-create',
-  templateUrl: 'app/+mosaic/components/mosaic.create.component.html',
-  styleUrls: ['app/+mosaic/components/mosaic.create.component.css'],
+  selector: 'sd-folders',
+  templateUrl: ['app/+mosaic/components/folders.component.html'],
   directives: [],
 })
-export class MosaicCreateComponent {
-  name:string = '';
+export class FoldersComponent {
   folder:string = '';
   folders:[any] = [];
-  target:string = '';
-  errors: [any] = [];
   constructor(private user_service:UserService,
               private router: Router,
               private mosaicService: MosaicService,
@@ -36,27 +32,11 @@ export class MosaicCreateComponent {
         )
       }
   }
-  create(){
-    this.mosaicService.create({
-      name: this.name,
-      images_folder: this.folder
-    }, {
-      target: this.target
-    }).then((result)=>{
-      console.log(result);
-      this.router.navigate(['./mosaic']);
-    })
-  }
+
 
   selectFolder(folder){
     console.log(folder);
     this.folder = folder
-  }
-
-  selectImage(image){
-    console.log(image);
-    this.target = image.files[0];
-    console.log(this.target);
   }
 
 }

@@ -12,14 +12,17 @@ import {MosaicService} from "../shared/services/mosaic.service";
 import {MosaicCreateComponent} from "../+mosaic/components/mosaic.create.component";
 import {FoldersService} from "../shared/services/folders.service";
 import {LogoutComponent} from "./logout.component";
-//import {LoggedInRouterOutlet} from "./logged.in.outlet";
+import 'rxjs/Rx';
+import {SettingsService} from "../shared/services/settings.service";
+import {FoldersComponent} from "../+mosaic/components/folders.component";
+import {RegisterComponent} from "./register.component";
 
 @Component({
   selector: 'sd-app',
   viewProviders: [NameListService, UserService, MosaicService, FoldersService],
   templateUrl: 'app/components/app.component.html',
-  directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent, LoginComponent, LogoutComponent],
-  providers: [HTTP_PROVIDERS],
+  directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent, LoginComponent, LogoutComponent, RegisterComponent],
+  providers: [HTTP_PROVIDERS, UserService, SettingsService],
 })
 @Routes([
   {
@@ -33,6 +36,10 @@ import {LogoutComponent} from "./logout.component";
   {
     path: '/mosaic-create',
     component: MosaicCreateComponent,
+  },
+  {
+    path: '/folders',
+    component: FoldersComponent,
   },
 ])
 export class AppComponent {

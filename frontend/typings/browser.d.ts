@@ -30,4 +30,5 @@
 /// <reference path="browser/ambient/vinyl/index.d.ts" />
 /// <reference path="browser/ambient/yargs/index.d.ts" />
 /// <reference path="browser/ambient/zone.js/index.d.ts" />
+/// <reference path="browser/definitions/moment/index.d.ts" />
 /// <reference path="browser/definitions/xhr2/index.d.ts" />

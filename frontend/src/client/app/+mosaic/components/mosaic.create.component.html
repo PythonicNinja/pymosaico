@@ -1,5 +1,5 @@
-<form (ngSubmit)="create()">
-    <h1>Create mosaic</h1>
+<form>
+    <h2>Create mosaic</h2>
     <p>
         {{ errors.non_field_errors }}
     </p>
@@ -12,14 +12,15 @@
     <p *ngIf="errors.folder" class="error">
       <span>{{ errors.folder }}</span>
     </p>
-    <select [(ngModel)]="folder" placeholder="folder">
-
+    <select placeholder="folder" #f (change)="selectFolder(f.value)">
+        <option [value]="folder.id" *ngFor="let folder of folders">{{ folder.name }}</option>
     </select>
     <br>
     <br>
     <p *ngIf="errors.target" class="error">
       <span>{{ errors.target }}</span>
     </p>
-    <input [(ngModel)]="target" placeholder="target" type="file">
+    <input #image placeholder="target" type="file" (change)="selectImage(image)">
     <button (click)="create()">Create</button>
+
 </form>

@@ -7,19 +7,28 @@ import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';
 
 @Component({
   selector: 'sd-logout',
-  providers: [UserService],
   templateUrl: 'app/components/logout.component.html',
 })
 export class LogoutComponent {
   isLoggedIn: boolean = false;
+  subscription: any;
+
   constructor(public userService: UserService, private router: Router) {
     this.isLoggedIn = this.userService.isLoggedIn();
-    console.log('LogoutComponent.constructor');
-    console.log(this.userService.emitter);
-    this.userService.emitter.subscribe((value) => {
-      console.log('Islogged subscriber receive', value);
-      this.isLoggedIn = value;
-    });
+  }
+
+  ngOnInit() {
+
+    this.subscription = this.userService.userChanged.subscribe(
+      value => {
+        console.log('Islogged subscriber receive', value);
+        this.isLoggedIn = value;
+      });
+
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   logout(): string{

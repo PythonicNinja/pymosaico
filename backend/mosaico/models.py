@@ -4,6 +4,7 @@ import datetime
 
 import os
 
+
 from django.conf import settings
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
@@ -45,3 +46,9 @@ class Mosaico(TimeStampedModel):
         for image in self.images_folder.images.all():
             images.append(image.image.path)
         return images
+
+    def save(self, *args, **kwargs):
+        super(Mosaico, self).save(*args, **kwargs)
+        if self.status == self.INITIAL:
+            from tasks import create_mosaico
+            create_mosaico.delay(self.pk)

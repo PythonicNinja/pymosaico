@@ -6,12 +6,13 @@ import {Subscription} from "rxjs/Subscription";
 import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';
 
 @Component({
-  selector: 'sd-login',
-  templateUrl: 'app/components/login.component.html',
+  selector: 'sd-register',
+  templateUrl: 'app/components/register.component.html',
 })
-export class LoginComponent {
+export class RegisterComponent {
   username: string = '';
-  password: string = '';
+  password1: string = '';
+  password2: string = '';
   errors: [any] = [];
   isLoggedIn: boolean = false;
   constructor(public userService: UserService, private router: Router) {
@@ -22,9 +23,9 @@ export class LoginComponent {
     this.isLoggedIn = this.userService.isLoggedIn();
   }
 
-  login(): any {
+  register(): any {
     var that = this;
-    this.userService.login(this.username, this.password)
+    this.userService.register(this.username, this.password1, this.password2)
       .subscribe(
         data => {
           if (data.key) {

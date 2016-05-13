@@ -1,4 +1,5 @@
-import osaic
+
+from mosaicify_adapter import mosaicify
 from django.core.files.base import ContentFile
 from django.utils.six import StringIO
 
@@ -15,7 +16,7 @@ def create_mosaico(mosaico_pk):
     mosaico.status = Mosaico.RENDERING
     mosaico.save()
 
-    result = osaic.mosaicify(
+    result = mosaicify(
         target=mosaico.target.path,
         sources=mosaico.images(),
         tiles=128,
@@ -35,7 +36,3 @@ def create_mosaico(mosaico_pk):
         string_io.close()
 
     mosaico.save()
-
-    # mosaico.status = Mosaico.ERROR
-    # mosaico.save()
-    #

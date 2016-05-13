@@ -1,17 +1,20 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import 'rxjs/Rx';
-import {Subscription} from "rxjs/Subscription";
 import {Observable} from "rxjs/Observable";
+import {Observer} from "rxjs/Observer";
+import {SettingsService} from "./settings.service";
 
 @Injectable()
 export class UserService {
   public loggedIn = false;
 
-  public emitter: EventEmitter = new EventEmitter();
+  public userChanged: EventEmitter = new EventEmitter();
+  userChanged: Observable<boolean>;
+  private _observer: Observer<boolean>;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private settingsService:SettingsService) {
     this.loggedIn = !!localStorage.getItem('auth_token');
+    this.userChanged = new Observable(observer => this._observer = observer).share();
   }
 
   login(username:string, password:string): Observable {
@@ -19,35 +22,42 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     return this.http
       .post(
-        'http://127.0.0.1:8000/rest-auth/login/',
+        this.settingsService.getUrl() + 'rest-auth/login/',
         JSON.stringify({ username, password }),
         { headers }
       )
       .map(res => res.json())
   }
-  setToken(token:string): boolean {
-    localStorage.setItem('auth_token', token);
-    this.loggedIn = true;
 
-    return this.isLoggedIn();
+  register(username:string, password1:string, password2:string): Observable {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http
+      .post(
+        this.settingsService.getUrl() + 'rest-auth/registration/',
+        JSON.stringify({ username:username, password1:password1, password2:password2}),
+        { headers }
+      )
+      .map(res => res.json())
+  }
+
+  setToken(token:string): void {
+    localStorage.setItem('auth_token', token);
+    this._observer.next(true);
+    this.loggedIn = true;
   }
 
   token(): string {
-    return localStorage.getItem('auth_token');
+    return 'Token ' + localStorage.getItem('auth_token');
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('auth_token');
-    this.emitter.emit(false);
+    this._observer.next(false);
     this.loggedIn = false;
   }
 
   isLoggedIn(): boolean {
     return localStorage.getItem('auth_token');
   }
-}
-
-
-export function isLoggedIn() {
-  return !!localStorage.getItem('auth_token');
 }

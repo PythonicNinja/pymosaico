@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor="let folder of folders">
+        <h4>{{ folder.name }} #{{ folder.images.length }}</h4>
+        <img *ngFor="let image of folder.images" [src]="image.image" width="40px">
+    </li>
+</ul>

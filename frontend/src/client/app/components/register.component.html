@@ -1,0 +1,19 @@
+
+<form (ngSubmit)="register()" [hidden]="isLoggedIn">
+    <h1>Register</h1>
+    <p>
+        {{ errors.non_field_errors }}
+    </p>
+    <p *ngIf="errors.username" class="error">
+      <span>{{ errors.username }}</span>
+    </p>
+    <input [(ngModel)]="username" placeholder="username">
+    <br>
+    <p *ngIf="errors.password1" class="error">
+      <span>{{ errors.password1 }}</span>
+    </p>
+    <input [(ngModel)]="password1" placeholder="password" type="password">
+    <input [(ngModel)]="password2" placeholder="repeat password" type="password">
+    <button (click)="register()">Register</button>
+</form>
+
