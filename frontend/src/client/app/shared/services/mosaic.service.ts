@@ -4,55 +4,21 @@ import 'rxjs/Rx';
 import {Subscription} from "rxjs/Subscription";
 import {UserService} from "./user.service";
 import {Observable} from "rxjs/Observable";
-import {SettingsService} from "./settings.service";
+import {RestService} from "./rest.service";
 
 @Injectable()
 export class MosaicService {
-  constructor(private http:Http, private userService:UserService, private settingsService:SettingsService) {
-
-  }
+  constructor(
+              private restService:RestService
+  ) {}
 
   get_mosaics():Observable {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    console.log(this.userService.token());
-    headers.append('Authorization', this.userService.token());
-
-    return this.http
-      .get(
-        this.settingsService.getUrl() + 'mosaico/viewset/',
-        {headers:headers}
-      )
-      .map(res => res.json())
+    return this.restService.get('mosaico/viewset/');
   }
 
 
   create(data:any, files:any):Promise {
-    return new Promise((resolve, reject) => {
-
-      let xhr:XMLHttpRequest = new XMLHttpRequest();
-      xhr.open('POST', this.settingsService.getUrl() + 'mosaico/viewset/', true);
-
-      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      xhr.setRequestHeader('Authorization',  this.userService.token());
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.response));
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      let formData = new FormData();
-      for(var file in files)
-        formData.append(file, files[file], files[file].name);
-      for(var value in data)
-        formData.append(value, data[value]);
-
-      xhr.send(formData);
-    });
+    return this.restService.postFiles('mosaico/viewset/', 'POST', data, files);
   }
 }
 

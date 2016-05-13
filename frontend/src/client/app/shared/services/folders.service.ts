@@ -4,25 +4,20 @@ import 'rxjs/Rx';
 import {Subscription} from "rxjs/Subscription";
 import {UserService} from "./user.service";
 import {Observable} from "rxjs/Observable";
+import {RestService} from "./rest.service";
 
 @Injectable()
 export class FoldersService {
-  constructor(private http: Http, private userService: UserService) {
+  constructor(private http: Http, private restService:RestService) {
 
   }
 
   get_folders(): Observable {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this.userService.token());
+    return this.restService.get('images/folders/viewset/');
+  }
 
-    return this.http
-      .get(
-        'http://127.0.0.1:8000/images/folders/viewset/',
-        {},
-        { headers }
-      )
-      .map(res => res.json())
+  createFolder(data:any, files:any): Observable {
+
   }
 
 }

@@ -4,7 +4,7 @@ import { HTTP_PROVIDERS } from '@angular/http';
 
 import { MosaicComponent } from '../+mosaic/index';
 import { HomeComponent } from '../+home/index';
-import { NameListService, UserService } from '../shared/index';
+import { UserService } from '../shared/index';
 import { NavbarComponent } from './navbar.component';
 import { ToolbarComponent } from './toolbar.component';
 import { LoginComponent } from "./login.component";
@@ -13,16 +13,16 @@ import {MosaicCreateComponent} from "../+mosaic/components/mosaic.create.compone
 import {FoldersService} from "../shared/services/folders.service";
 import {LogoutComponent} from "./logout.component";
 import 'rxjs/Rx';
-import {SettingsService} from "../shared/services/settings.service";
+import {RestService} from "../shared/services/rest.service";
 import {FoldersComponent} from "../+mosaic/components/folders.component";
 import {RegisterComponent} from "./register.component";
 
 @Component({
   selector: 'sd-app',
-  viewProviders: [NameListService, UserService, MosaicService, FoldersService],
+  viewProviders: [UserService, MosaicService, FoldersService],
   templateUrl: 'app/components/app.component.html',
   directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent, LoginComponent, LogoutComponent, RegisterComponent],
-  providers: [HTTP_PROVIDERS, UserService, SettingsService],
+  providers: [HTTP_PROVIDERS, UserService, RestService],
 })
 @Routes([
   {

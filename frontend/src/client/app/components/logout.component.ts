@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import {NameListService} from "../shared/services/name-list.service";
 import {UserService} from "../shared/services/user.service";
 import {Subscription} from "rxjs/Subscription";
 import { ROUTER_DIRECTIVES, Routes, Router } from '@angular/router';

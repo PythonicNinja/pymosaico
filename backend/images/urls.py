@@ -8,5 +8,5 @@ __author__ = 'mail@pythonic.ninja'
 
 app_name = 'images'
 urlpatterns = [
-    url(r'^folders/viewset/', ImageFolderViewSet.as_view({'get': 'list'}), name='folders_viewset'),
+    url(r'^folders/viewset/', ImageFolderViewSet.as_view({'get': 'list', 'post': 'create'}), name='folders_viewset'),
 ]

@@ -2,7 +2,7 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
-import {SettingsService} from "./settings.service";
+import {RestService} from "./rest.service";
 
 @Injectable()
 export class UserService {
@@ -12,7 +12,7 @@ export class UserService {
   userChanged: Observable<boolean>;
   private _observer: Observer<boolean>;
 
-  constructor(private http: Http, private settingsService:SettingsService) {
+  constructor(private http: Http, private restService:RestService) {
     this.loggedIn = !!localStorage.getItem('auth_token');
     this.userChanged = new Observable(observer => this._observer = observer).share();
   }
@@ -22,7 +22,7 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     return this.http
       .post(
-        this.settingsService.getUrl() + 'rest-auth/login/',
+        this.restService.getBaseUrl() + 'rest-auth/login/',
         JSON.stringify({ username, password }),
         { headers }
       )
@@ -34,7 +34,7 @@ export class UserService {
     headers.append('Content-Type', 'application/json');
     return this.http
       .post(
-        this.settingsService.getUrl() + 'rest-auth/registration/',
+        this.restService.getBaseUrl() + 'rest-auth/registration/',
         JSON.stringify({ username:username, password1:password1, password2:password2}),
         { headers }
       )
