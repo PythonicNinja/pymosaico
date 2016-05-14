@@ -16,6 +16,7 @@ import 'rxjs/Rx';
 import {RestService} from "../shared/services/rest.service";
 import {FoldersComponent} from "../+mosaic/components/folders.component";
 import {RegisterComponent} from "./register.component";
+import {FolderCreateComponent} from "../+mosaic/components/folder.create.component";
 
 @Component({
   selector: 'sd-app',
@@ -41,6 +42,11 @@ import {RegisterComponent} from "./register.component";
     path: '/folders',
     component: FoldersComponent,
   },
+  {
+    path: '/folder-create',
+    component: FolderCreateComponent,
+  },
+
 ])
 export class AppComponent {
   isLoggedIn: boolean = false;

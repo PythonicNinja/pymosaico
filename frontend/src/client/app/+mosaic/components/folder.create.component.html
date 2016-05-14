@@ -1,0 +1,18 @@
+<form>
+    <h2>Create Folder</h2>
+    <p>
+        {{ errors.non_field_errors }}
+    </p>
+    <p *ngIf="errors.name" class="error">
+      <span>{{ errors.name }}</span>
+    </p>
+    <input [(ngModel)]="name" placeholder="name">
+    <br>
+    <br>
+    <p *ngIf="errors.images" class="error">
+      <span>{{ errors.images }}</span>
+    </p>
+    <input #image placeholder="images" type="file" (change)="selectImage(image)" multiple>
+    <button (click)="create()">Create</button>
+
+</form>
