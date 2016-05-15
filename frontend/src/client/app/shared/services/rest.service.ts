@@ -29,7 +29,7 @@ export class RestService {
       xhr.setRequestHeader('Authorization',  this.token());
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
+          if (xhr.status === 200 || xhr.status === 201) {
             resolve(JSON.parse(xhr.response));
           } else {
             reject(xhr.response);

@@ -42,21 +42,22 @@ export class MosaicCreateComponent {
       images_folder: this.folder
     }, {
       target: this.target
-    }).then((result)=>{
-      console.log(result);
-      this.router.navigate(['./mosaic']);
-    })
+    }).then(
+      (success)=>{
+        this.router.navigate(['./mosaic']);
+      },
+      (errors) => {
+        this.errors = JSON.parse(errors);
+      }
+    )
   }
 
   selectFolder(folder){
-    console.log(folder);
     this.folder = folder
   }
 
   selectImage(image){
-    console.log(image);
     this.target = image.files[0];
-    console.log(this.target);
   }
 
 }

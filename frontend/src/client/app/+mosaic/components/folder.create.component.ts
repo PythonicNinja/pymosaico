@@ -17,38 +17,38 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 export class FolderCreateComponent {
   name:string = '';
   images:any = '';
-  errors: [any] = [];
+  errors:[any] = [];
+
   constructor(private user_service:UserService,
-              private router: Router,
-              private foldersService: FoldersService) {}
+              private router:Router,
+              private foldersService:FoldersService) {
+  }
 
   ngOnInit() {
-      if(!this.user_service.isLoggedIn()){
-        this.router.navigate(['./']);
-      }else{
+    if (!this.user_service.isLoggedIn()) {
+      this.router.navigate(['./']);
+    } else {
 
-      }
+    }
   }
-  create(){
+
+  create() {
     this.foldersService.createFolder({
-      name: this.name,
-    },
+        name: this.name,
+      },
       this.images
-    ).then((result)=>{
-      console.log(result);
-      this.router.navigate(['./mosaic']);
-    })
+    ).then(
+      (success)=> {
+        this.router.navigate(['./folders']);
+      },
+      (errors) => {
+        this.errors = JSON.parse(errors);
+      }
+    )
   }
 
-  selectFolder(folder){
-    console.log(folder);
-    this.folder = folder
-  }
-
-  selectImage(image){
-    console.log(image);
+  selectImage(image) {
     this.images = image.files;
-    console.log(this.images);
   }
 
 }

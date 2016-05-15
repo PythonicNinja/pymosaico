@@ -24,7 +24,7 @@ export class FoldersComponent {
 
   ngOnInit() {
       if(!this.user_service.isLoggedIn()){
-        this.router.navigate(['./']);
+        this.router.navigate(['/']);
       }else{
         this.foldersService.get_folders().subscribe(
           (folders) => {
@@ -36,7 +36,6 @@ export class FoldersComponent {
 
 
   selectFolder(folder){
-    console.log(folder);
     this.folder = folder
   }
 

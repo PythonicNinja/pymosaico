@@ -27,7 +27,6 @@ export class MosaicComponent {
             console.log(err);
           },
           () => {
-            console.log('finished');
           }
         );
 

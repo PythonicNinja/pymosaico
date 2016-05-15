@@ -16,7 +16,7 @@ export class FoldersService {
     return this.restService.get('images/folders/viewset/');
   }
 
-  createFolder(data:any, files:any): Observable {
+  createFolder(data:any, files:any): Promise {
     return this.restService.postFiles('images/folders/viewset/', 'POST', data, files);
   }
 

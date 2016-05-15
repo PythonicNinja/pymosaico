@@ -36,9 +36,7 @@ export class LoginComponent {
         err => {
           that.errors = JSON.parse(err._body);
         },
-        () => {
-          console.log('finished');
-        }
+        () => {}
       );
   }
   token(): string{

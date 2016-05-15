@@ -20,7 +20,6 @@ export class LogoutComponent {
 
     this.subscription = this.userService.userChanged.subscribe(
       value => {
-        console.log('Islogged subscriber receive', value);
         this.isLoggedIn = value;
       });
 

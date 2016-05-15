@@ -37,9 +37,7 @@ export class RegisterComponent {
         err => {
           that.errors = JSON.parse(err._body);
         },
-        () => {
-          console.log('finished');
-        }
+        () => {}
       );
   }
   token(): string{

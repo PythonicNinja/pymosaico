@@ -44,7 +44,6 @@ class ImageFolderCreateSerializer(ModelSerializer):
         for image in images_data:
             i += 1
             img_obj = Image.objects.create(name=image['name'], image=image['image'])
-            print i
             Image2Folder.objects.create(
                 folder=image_folder,
                 image=img_obj,

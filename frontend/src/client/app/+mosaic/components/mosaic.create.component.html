@@ -9,8 +9,8 @@
     <input [(ngModel)]="name" placeholder="name">
     <br>
     <br>
-    <p *ngIf="errors.folder" class="error">
-      <span>{{ errors.folder }}</span>
+    <p *ngIf="errors.images_folder" class="error">
+      <span>{{ errors.images_folder }}</span>
     </p>
     <select placeholder="folder" #f (change)="selectFolder(f.value)">
         <option [value]="folder.id" *ngFor="let folder of folders">{{ folder.name }}</option>
