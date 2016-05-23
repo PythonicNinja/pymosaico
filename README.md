@@ -3,7 +3,13 @@
 ![Moaicopy](mosaico.png)
 
 
-# running
+# docker run
+
+```
+| => docker-compose up
+```
+
+# manual running
 ## backend
 
 virtualenv env

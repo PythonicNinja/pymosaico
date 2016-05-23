@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from kombu import Exchange, Queue
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -114,6 +115,57 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+RABBIT_HOSTNAME = os.environ.get('RABBIT', 'rabbitmq:5672')
+
+if RABBIT_HOSTNAME.startswith('tcp://'):
+    RABBIT_HOSTNAME = RABBIT_HOSTNAME.split('//')[1]
+
+BROKER_URL = os.environ.get('BROKER_URL', '')
+if not BROKER_URL:
+    BROKER_URL = 'amqp://{user}:{password}@{hostname}/{vhost}/'.format(
+        user=os.environ.get('RABBIT_ENV_USER', 'admin'),
+        password=os.environ.get('RABBIT_ENV_RABBITMQ_PASS', 'mypass'),
+        hostname=RABBIT_HOSTNAME,
+        vhost=os.environ.get('RABBIT_ENV_VHOST', ''))
+
+# We don't want to have dead
+# connections stored on
+# rabbitmq, so we have to
+# negotiate using heartbeats
+BROKER_HEARTBEAT = '?heartbeat=30'
+if not BROKER_URL.endswith(BROKER_HEARTBEAT):
+    BROKER_URL += BROKER_HEARTBEAT
+
+BROKER_POOL_LIMIT = 1
+BROKER_CONNECTION_TIMEOUT = 10
+
+# Celery configuration
+
+# configure queues,
+# currently we have only one
+CELERY_DEFAULT_QUEUE = 'default'
+CELERY_QUEUES = (
+    Queue('default', Exchange('default'), routing_key='default'),
+)
+
+# Sensible settings for
+# celery
+CELERY_ALWAYS_EAGER = False
+CELERY_ACKS_LATE = True
+CELERY_TASK_PUBLISH_RETRY = True
+CELERY_DISABLE_RATE_LIMITS = False
+
+# By default we will
+# ignore result
+# If you want to see
+# results and try out
+# tasks interactively,
+# change it to False
+# Or change this setting
+# on tasks level
+CELERY_IGNORE_RESULT = True
+CELERY_SEND_TASK_ERROR_EMAILS = False
+CELERY_TASK_RESULT_EXPIRES = 600
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

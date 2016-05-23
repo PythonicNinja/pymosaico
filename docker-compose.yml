@@ -1,0 +1,29 @@
+version: '2'
+services:
+  web:
+    build: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    command: ./run_backend.sh 
+  worker:
+    build: backend
+    volumes:
+      - .:/code
+    command: ./run_worker.sh
+    environment:
+        - RABIT_PORT_5672_TCP=rabbitmq:5672
+  rabbitmq:
+    image: tutum/rabbitmq
+    environment:
+      - RABBITMQ_PASS=mypass
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  frontend:
+      build: frontend
+      ports:
+        - "80:80"    
+      volumes:
+       - .:/code

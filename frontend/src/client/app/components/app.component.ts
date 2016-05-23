@@ -22,7 +22,7 @@ import {FolderCreateComponent} from "../+mosaic/components/folder.create.compone
   selector: 'sd-app',
   viewProviders: [UserService, MosaicService, FoldersService],
   templateUrl: 'app/components/app.component.html',
-  directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent, LoginComponent, LogoutComponent, RegisterComponent],
+  directives: [ROUTER_DIRECTIVES, NavbarComponent, ToolbarComponent, LoginComponent, LogoutComponent, RegisterComponent, FoldersComponent],
   providers: [HTTP_PROVIDERS, UserService, RestService],
 })
 @Routes([
