@@ -9,6 +9,11 @@
 | => docker-compose up
 ```
 
+Open browser
+```
+open localhost
+```
+
 # manual running
 ## backend
 
