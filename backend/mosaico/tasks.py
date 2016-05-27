@@ -4,13 +4,13 @@ from django.core.files.base import ContentFile
 from django.utils.six import StringIO
 
 from models import Mosaico
-from celery import shared_task
+from project.celery import app
 
 
 __author__ = 'mail@pythonic.ninja'
 
 
-@shared_task
+@app.task
 def create_mosaico(mosaico_pk):
     mosaico = Mosaico.objects.get(pk=mosaico_pk)
     mosaico.status = Mosaico.RENDERING

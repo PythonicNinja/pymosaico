@@ -1,16 +1,21 @@
 # -*- coding: utf-8 -*-
 # CREATED ON DATE: 12.05.2016
-from rest_framework.fields import CurrentUserDefault, HiddenField
-
 __author__ = 'mail@pythonic.ninja'
 
 from models import ImageFolder, Image, Image2Folder
+from mosaico.serializers import get_small_image
 from rest_framework.serializers import ModelSerializer
+from rest_framework.fields import CurrentUserDefault, HiddenField, SerializerMethodField
 
 
 class ImageSerializer(ModelSerializer):
+    image = SerializerMethodField()
+
     class Meta:
         model = Image
+
+    def get_image(self, obj):
+        return get_small_image(obj, 'image', self.context.get('request'))
 
 
 class ImageFolderSerializer(ModelSerializer):

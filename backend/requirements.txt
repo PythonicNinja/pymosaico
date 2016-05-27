@@ -8,3 +8,4 @@ pillow
 celery
 -e hg+https://vojtek@bitbucket.org/iamFIREcracker/osaic#egg=osaic
 django-cors-headers
+easy-thumbnails
